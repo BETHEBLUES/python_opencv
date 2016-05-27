@@ -1,0 +1,183 @@
+// pointer and array variable error case
+
+void main(void)
+{
+	char *p = "C_PROGRAM";
+	char str[20] = "C_PROGRAM";
+
+	p[0] = 'B'; // Read Only 영역에 쓰려하면 에러
+	// 예외 발생(0x0F4E0E29(ucrtbased.dll), C_TEST_01.exe): 0xC0000005: 0x01376B30 위치를 기록하는 동안 액세스 위반이 발생했습니다..
+	str[0] = 'B'; // 위의 라인이 없다면, 에러 없이 실행됨.
+
+	printf("Good bye~!\n");
+}
+
+
+void main(void)
+{
+	char *p = "C_PROGRAM";
+	char str[20] = "C_PROGRAM";
+
+	str[0] = 'B';
+
+	strcpy(p, "JAVA"); // Read Only영역에 쓰려하므로 Access 에러 
+	// 예외 발생(0x0F4E0E29(ucrtbased.dll), C_TEST_01.exe): 0xC0000005: 0x01376B30 위치를 기록하는 동안 액세스 위반이 발생했습니다..
+	printf("Good bye~!\n");
+}
+
+
+void main(void)
+{
+	char *p = "C_PROGRAM";
+	char str[20] = "C_PROGRAM";
+
+	str[0] = 'B';
+	printf("str = %s \n", str);
+	strcpy(str, "JAVA");
+	printf("str = %s \n", str);
+	printf("Good bye~!\n");
+}
+
+
+void main(void)
+{
+char *p = "C_PROGRAM";
+char str[20] = "C_PROGRAM";
+
+p = "PYTHON";
+// str = "PYTHON"; // 오류 : 식이 수정할 수 있는 lvalue여야 합니다. 
+//  error C2106: '=': 왼쪽 피연산자는 l-value이어야 합니다.
+printf("p = %s \n", p);
+printf("str = %s \n", str);
+
+printf("Good bye~!\n");
+}
+
+
+void main(void)
+{
+	char *p = "C_PROGRAM";
+	char str[20] = "C_PROGRAM";
+
+	strcpy(p, "C++"); 
+	// 위에서... 예외 발생(0x0FD20E62(ucrtbased.dll), C_TEST_01.exe): 0xC0000005: 0x00046B30 위치를 기록하는 동안 액세스 위반이 발생했습니다..
+
+	strcpy(str, "C++");
+
+	printf("p = %s \n", p);
+	printf("str = %s \n", str);
+
+	printf("Good bye~!\n");
+}
+
+
+
+void main(void)
+{
+	char *p = "C_PROGRAM";
+	char str[20] = "C_PROGRAM";
+
+	strcpy(str, "C++");  // 정상 처리됨.
+
+	printf("p = %s \n", p);
+	printf("str = %s \n", str);
+
+	printf("Good bye~!\n");
+}
+
+void main(void)
+{
+	char *p = "C_PROGRAM";  //p값 주소 = 0x002e6b30 에...  "C_PROGRAM" 내용이 있음.
+
+	char str[20] = "C_PROGRAM";
+
+	p = "PYTHON"; // 정상 처리됨. "PYTHON"이라는 문자열이 있는 주소를 넣는 것.
+	//p값 주소 = 0x002e6bf0 로... 주소가 바뀜. 그리고 내용도 "PYTHON"으로 내용이 바뀜.
+
+	printf("p = %s \n", p);
+	printf("str = %s \n", str);
+
+	printf("Good bye~!\n");
+}
+
+
+void main(void)
+{
+	char *p;
+	char str[20] = "C_PROGRAM";
+
+	p[0] = "B"; 	// 초기화 하지 않고 사용하여, run time error발생
+
+	printf("p = %s \n", p);
+	printf("str = %s \n", str);
+
+	printf("Good bye~!\n");
+}
+
+
+void main(void)
+{
+	char *p;
+	char str[20] = "C PROGRAM";
+	p = str; // str의 주소를 p에 넣는다. 
+
+	p[0] = 'B'; // 배열의 주소를 받았으므로, 배열의 구성 요소 변경은 문제가 없
+	// 는 것 같다.
+
+	printf("p = %s \n", p);
+	printf("str = %s \n", str);
+
+	printf("Good bye~!\n");
+}
+
+
+void main(void)
+{
+	char *p;
+	char str[20] = "C PROGRAM";
+	p = str; // str의 주소를 p에 넣는다. 
+
+	p[0] = 'B'; // 배열의 주소를 받았으므로, 배열의 구성 요소 변경은 문제가 없
+				// 는 것 같다.
+	str[0] = 'B';
+
+	printf("p = %s \n", p);
+	printf("str = %s \n", str);
+
+	strcpy(p, "JAVA");
+	strcpy(str, "JAVA");
+
+	printf("p = %s \n", p);
+	printf("str = %s \n", str);
+
+	printf("Good bye~!\n");
+}
+
+
+void main(void)
+{
+	char *p;
+	char str[20] = "C PROGRAM";
+	p = str; // str의 주소를 p에 넣는다. 
+
+	p[0] = 'B'; // 배열의 주소를 받았으므로, 배열의 구성 요소 변경은 문제가 없는 것 같다.
+	str[0] = 'B';
+
+	printf("p = %s \n", p);
+	printf("str = %s \n", str);
+
+	strcpy(p, "JAVA");
+	strcpy(str, "JAVA");
+
+	printf("p = %s \n", p);
+	printf("str = %s \n", str);
+
+	p = "PYTHON"; // 이 초기화로 p는 Read Only영역을 가리키게됨..
+	printf("p = %s \n", p);
+
+	strcpy(p, "JAVA");  // Read Only를 access하려 하니 런타임 에러 발생함.
+	// 예외 발생(0x0F130E29(ucrtbased.dll), C_TEST_01.exe): 0xC0000005: 0x00036C00 위치를 기록하는 동안 액세스 위반이 발생했습니다..
+	printf("p = %s \n", p);
+
+	printf("Good bye~!\n");
+}
